@@ -69,3 +69,8 @@
 ## 许可
 
 本项目采用MIT许可证。
+
+## 作者与联系方式
+
+- 作者：QQHKX
+- 网站：[https://qqhkx.com/](https://qqhkx.com/)
