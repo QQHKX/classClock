@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>沉浸式时钟</title>
+    <link rel="stylesheet" href="styles/variables.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- 主时间显示区域 -->
+        <div id="time-display">
+            <div id="clock" class="time-mode active">00:00:00</div>
+            <div id="countdown" class="time-mode">00:00</div>
+            <div id="stopwatch" class="time-mode">00:00<span class="milliseconds">00</span></div>
+        </div>
+
+        <!-- 控制中心 (HUD) -->
+        <div id="hud">
+            <!-- 模式选择器 (顶部) -->
+            <div id="mode-selector">
+                <button class="mode-btn active" data-mode="clock">时钟</button>
+                <button class="mode-btn" data-mode="countdown">倒计时</button>
+                <button class="mode-btn" data-mode="stopwatch">秒表</button>
+            </div>
+
+            <!-- 操作控制栏 (底部) -->
+            <div id="control-bar">
+                <!-- 时钟模式控制 -->
+                <div id="clock-controls" class="controls active">
+                    <button id="fullscreen-btn" class="control-btn">
+                        <svg class="feather"><use href="#maximize"/></svg>
+                        <span>全屏</span>
+                    </button>
+                </div>
+
+                <!-- 倒计时模式控制 -->
+                <div id="countdown-controls" class="controls">
+                    <button id="countdown-start" class="control-btn">
+                        <svg class="feather"><use href="#play"/></svg>
+                        <span>开始</span>
+                    </button>
+                    <button id="countdown-reset" class="control-btn">
+                        <svg class="feather"><use href="#rotate-cw"/></svg>
+                        <span>重置</span>
+                    </button>
+                    <button id="countdown-fullscreen" class="control-btn">
+                        <svg class="feather"><use href="#maximize"/></svg>
+                        <span>全屏</span>
+                    </button>
+                </div>
+
+                <!-- 秒表模式控制 -->
+                <div id="stopwatch-controls" class="controls">
+                    <button id="stopwatch-start" class="control-btn">
+                        <svg class="feather"><use href="#play"/></svg>
+                        <span>开始</span>
+                    </button>
+                    <button id="stopwatch-reset" class="control-btn">
+                        <svg class="feather"><use href="#rotate-cw"/></svg>
+                        <span>重置</span>
+                    </button>
+                    <button id="stopwatch-fullscreen" class="control-btn">
+                        <svg class="feather"><use href="#maximize"/></svg>
+                        <span>全屏</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 倒计时设置浮层 -->
+        <div id="countdown-modal" class="modal">
+            <div class="modal-content">
+                <div class="time-picker">
+                    <div class="time-unit">
+                        <div class="time-value" id="countdown-minutes">00</div>
+                        <div class="time-label">分钟</div>
+                        <div class="time-controls">
+                            <button class="time-btn" data-action="plus" data-target="minutes">
+                                <svg class="feather"><use href="#plus"/></svg>
+                            </button>
+                            <button class="time-btn" data-action="minus" data-target="minutes">
+                                <svg class="feather"><use href="#minus"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="time-separator">:</div>
+                    <div class="time-unit">
+                        <div class="time-value" id="countdown-seconds">00</div>
+                        <div class="time-label">秒钟</div>
+                        <div class="time-controls">
+                            <button class="time-btn" data-action="plus" data-target="seconds">
+                                <svg class="feather"><use href="#plus"/></svg>
+                            </button>
+                            <button class="time-btn" data-action="minus" data-target="seconds">
+                                <svg class="feather"><use href="#minus"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="preset-buttons">
+                    <button class="preset-btn" data-minutes="5" data-seconds="0">5:00</button>
+                    <button class="preset-btn" data-minutes="15" data-seconds="0">15:00</button>
+                    <button class="preset-btn" data-minutes="25" data-seconds="0">25:00</button>
+                    <button class="preset-btn" data-minutes="45" data-seconds="0">45:00</button>
+                </div>
+                <button id="countdown-confirm" class="confirm-btn">确认</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feather Icons SVG Sprites -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </symbol>
+        <symbol id="pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="6" y="4" width="4" height="16"></rect>
+            <rect x="14" y="4" width="4" height="16"></rect>
+        </symbol>
+        <symbol id="rotate-cw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+        </symbol>
+        <symbol id="maximize" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+        </symbol>
+        <symbol id="minimize" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
+        </symbol>
+        <symbol id="plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+        </symbol>
+        <symbol id="minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+        </symbol>
+    </svg>
+
+    <!-- 音频资源 -->
+    <audio id="ding-sound" src="assets/sounds/ding.mp3" preload="auto"></audio>
+
+    <!-- 脚本 -->
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/clock.js"></script>
+    <script src="scripts/countdown.js"></script>
+    <script src="scripts/stopwatch.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+:root {
+    /* 色彩规范 */
+    --color-background: #000000; /* 纯黑 - 背景 */
+    --color-primary: #FFFFFF;    /* 纯白 - 主色/文字 */
+    --color-secondary: #888888;  /* 中灰 - 辅助色 */
+    --color-accent: #FFFFFF;     /* 亮白 - 高亮/激活色 */
+    --color-accent-alt: #ADD8E6; /* 淡蓝色 - 可选高亮色 */
+    --color-warning: #E57373;    /* 柔和红色 - 警告色 */
+    
+    /* 字体规范 */
+    --font-primary: 'Roboto Mono', monospace; /* 数字字体 - 等宽 */
+    --font-ui: 'Inter', 'Helvetica Neue', sans-serif; /* UI文字字体 */
+    
+    /* 字重 */
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    
+    /* 间距单位 - 基于8px的网格系统 */
+    --spacing-unit: 8px;
+    --spacing-xs: calc(var(--spacing-unit) * 1);  /* 8px */
+    --spacing-sm: calc(var(--spacing-unit) * 2);  /* 16px */
+    --spacing-md: calc(var(--spacing-unit) * 3);  /* 24px */
+    --spacing-lg: calc(var(--spacing-unit) * 4);  /* 32px */
+    --spacing-xl: calc(var(--spacing-unit) * 6);  /* 48px */
+    --spacing-xxl: calc(var(--spacing-unit) * 8); /* 64px */
+    
+    /* 字体大小 */
+    --font-size-time: 25vh;      /* 主时间显示 - 响应式 */
+    --font-size-milliseconds: 8vh; /* 毫秒显示 - 响应式 */
+    --font-size-ui-large: 2.5vh;  /* 大号UI文字 */
+    --font-size-ui-medium: 2vh;   /* 中号UI文字 */
+    --font-size-ui-small: 1.5vh;  /* 小号UI文字 */
+    
+    /* 圆角 */
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 16px;
+    --border-radius-xl: 24px;
+    --border-radius-circle: 50%;
+    
+    /* 动画时间 */
+    --animation-speed-fast: 150ms;
+    --animation-speed-normal: 300ms;
+    --animation-speed-slow: 500ms;
+    
+    /* 阴影 */
+    --shadow-subtle: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.15);
+    --shadow-strong: 0 8px 30px rgba(0, 0, 0, 0.2);
+    
+    /* 透明度 */
+    --opacity-subtle: 0.1;
+    --opacity-medium: 0.5;
+    --opacity-high: 0.8;
+    
+    /* 控制中心自动隐藏时间 (毫秒) */
+    --hud-auto-hide-time: 8000ms;
+    
+    /* 按钮尺寸 */
+    --button-size: 48px;
+    --button-touch-size: 64px; /* 实际可点击区域 */
+    
+    /* 模态框 */
+    --modal-background: rgba(0, 0, 0, 0.85);
+    --modal-backdrop-filter: blur(10px);
+}
