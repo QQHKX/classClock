@@ -435,3 +435,18 @@ html, body {
 :-ms-fullscreen #app {
     background-color: var(--color-background);
 }
+
+/* 版本信息样式 */
+#version-info {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  font-size: 12px;
+  color: #999;
+  text-decoration: none;
+  z-index: 1000;
+}
+
+#version-info:hover {
+  color: #666;
+}
