@@ -36,6 +36,17 @@ const Utils = {
     },
     
     /**
+     * 格式化小时、分钟和秒为HH:MM:SS格式
+     * @param {number} hours - 小时数
+     * @param {number} minutes - 分钟数
+     * @param {number} seconds - 秒数
+     * @returns {string} - 格式化后的时间字符串
+     */
+    formatHoursMinutesSeconds: function(hours, minutes, seconds) {
+        return `${this.formatTwoDigits(hours)}:${this.formatTwoDigits(minutes)}:${this.formatTwoDigits(seconds)}`;
+    },
+    
+    /**
      * 格式化毫秒为两位数
      * @param {number} milliseconds - 毫秒数
      * @returns {string} - 格式化后的毫秒字符串

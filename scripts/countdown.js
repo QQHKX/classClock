@@ -1,26 +1,28 @@
 /**
- * 倒计时模式
+ * 倒计时功能模块
  * 负责倒计时功能，包括设置时间、开始、暂停和重置
  */
 
 const Countdown = {
     // 元素引用
-    element: null,
-    minutesElement: null,
-    secondsElement: null,
-    modal: null,
-    startButton: null,
-    resetButton: null,
-    confirmButton: null,
-    presetButtons: null,
+    element: null,          // 倒计时显示元素
+    modal: null,            // 设置模态框
+    hoursElement: null,     // 小时设置元素
+    minutesElement: null,   // 分钟设置元素
+    secondsElement: null,   // 秒设置元素
+    startButton: null,      // 开始/暂停按钮
+    resetButton: null,      // 重置按钮
+    confirmButton: null,    // 确认设置按钮
+    presetButtons: null,    // 预设按钮集合
     
     // 状态变量
-    minutes: 0,
-    seconds: 0,
-    totalSeconds: 0,
-    remainingSeconds: 0,
-    isRunning: false,
-    isWarning: false,
+    hours: 0,               // 设置的小时数
+    minutes: 0,             // 设置的分钟数
+    seconds: 0,             // 设置的秒数
+    totalSeconds: 0,        // 总秒数
+    remainingSeconds: 0,    // 剩余秒数
+    isRunning: false,       // 是否正在运行
+    isWarning: false,       // 是否处于警告状态
     
     // 动画帧请求ID
     animationFrameId: null,
@@ -29,14 +31,15 @@ const Countdown = {
     lastTimestamp: 0,
     
     /**
-     * 初始化倒计时模式
+     * 初始化倒计时功能
      */
     init: function() {
         // 获取DOM元素
         this.element = document.getElementById('countdown');
+        this.modal = document.getElementById('countdown-modal');
+        this.hoursElement = document.getElementById('countdown-hours');
         this.minutesElement = document.getElementById('countdown-minutes');
         this.secondsElement = document.getElementById('countdown-seconds');
-        this.modal = document.getElementById('countdown-modal');
         this.startButton = document.getElementById('countdown-start');
         this.resetButton = document.getElementById('countdown-reset');
         this.confirmButton = document.getElementById('countdown-confirm');
@@ -45,8 +48,8 @@ const Countdown = {
         // 绑定事件
         this.bindEvents();
         
-        // 初始化显示
-        this.updateDisplay();
+        // 设置默认时间
+        this.setTime(0, 5, 0);
     },
     
     /**
@@ -74,16 +77,16 @@ const Countdown = {
             Utils.addEvent(button, 'click', () => {
                 const minutes = parseInt(button.dataset.minutes, 10) || 0;
                 const seconds = parseInt(button.dataset.seconds, 10) || 0;
-                this.setTime(minutes, seconds);
+                this.setTime(0, minutes, seconds);
             });
         });
         
-        // 分钟和秒的加减按钮
+        // 小时、分钟和秒的加减按钮
         const timeButtons = document.querySelectorAll('.time-btn');
         timeButtons.forEach(button => {
             Utils.addEvent(button, 'click', () => {
                 const action = button.dataset.action;
-                const target = button.dataset.target;
+                const target = button.dataset.target; // 'hours', 'minutes' 或 'seconds'
                 this.adjustTime(action, target);
             });
         });
@@ -111,19 +114,34 @@ const Countdown = {
      * 确认设置并关闭模态框
      */
     confirmSettings: function() {
+        // 获取当前设置的时间值
+        const hours = parseInt(this.hoursElement.textContent, 10) || 0;
+        const minutes = parseInt(this.minutesElement.textContent, 10) || 0;
+        const seconds = parseInt(this.secondsElement.textContent, 10) || 0;
+        
+        // 应用设置的时间
+        this.setTime(hours, minutes, seconds);
+        
+        // 关闭模态框
         this.closeModal();
-        this.updateDisplay();
     },
     
     /**
-     * 调整时间（增加或减少分钟/秒）
+     * 调整时间（增加或减少小时/分钟/秒）
      * @param {string} action - 'plus' 或 'minus'
-     * @param {string} target - 'minutes' 或 'seconds'
+     * @param {string} target - 'hours', 'minutes' 或 'seconds'
      */
     adjustTime: function(action, target) {
-        if (target === 'minutes') {
+        if (target === 'hours') {
             if (action === 'plus') {
-                this.minutes = Math.min(99, this.minutes + 1);
+                this.hours = Math.min(99, this.hours + 1);
+            } else if (action === 'minus') {
+                this.hours = Math.max(0, this.hours - 1);
+            }
+            this.hoursElement.textContent = Utils.formatTwoDigits(this.hours);
+        } else if (target === 'minutes') {
+            if (action === 'plus') {
+                this.minutes = Math.min(59, this.minutes + 1);
             } else if (action === 'minus') {
                 this.minutes = Math.max(0, this.minutes - 1);
             }
@@ -140,16 +158,19 @@ const Countdown = {
     
     /**
      * 设置倒计时时间
+     * @param {number} hours - 小时数
      * @param {number} minutes - 分钟数
      * @param {number} seconds - 秒数
      */
-    setTime: function(minutes, seconds) {
+    setTime: function(hours, minutes, seconds) {
+        this.hours = hours;
         this.minutes = minutes;
         this.seconds = seconds;
-        this.totalSeconds = minutes * 60 + seconds;
+        this.totalSeconds = hours * 3600 + minutes * 60 + seconds;
         this.remainingSeconds = this.totalSeconds;
         
         // 更新模态框中的显示
+        this.hoursElement.textContent = Utils.formatTwoDigits(hours);
         this.minutesElement.textContent = Utils.formatTwoDigits(minutes);
         this.secondsElement.textContent = Utils.formatTwoDigits(seconds);
         
@@ -161,10 +182,19 @@ const Countdown = {
      * 更新倒计时显示
      */
     updateDisplay: function() {
-        const displayMinutes = Math.floor(this.remainingSeconds / 60);
-        const displaySeconds = this.remainingSeconds % 60;
+        // 计算小时、分钟和秒
+        const displayHours = Math.floor(this.remainingSeconds / 3600);
+        const displayMinutes = Math.floor((this.remainingSeconds % 3600) / 60);
+        const displaySeconds = Math.floor(this.remainingSeconds % 60);
         
-        this.element.textContent = Utils.formatMinutesSeconds(displayMinutes, displaySeconds);
+        // 格式化显示
+        if (displayHours > 0) {
+            // 如果有小时，显示小时:分钟:秒格式
+            this.element.textContent = Utils.formatHoursMinutesSeconds(displayHours, displayMinutes, displaySeconds);
+        } else {
+            // 否则只显示分钟:秒格式
+            this.element.textContent = Utils.formatMinutesSeconds(displayMinutes, displaySeconds);
+        }
         
         // 检查是否进入警告状态（剩余10秒或以下）
         if (this.remainingSeconds <= 10 && this.remainingSeconds > 0) {
@@ -203,6 +233,8 @@ const Countdown = {
         if (this.remainingSeconds <= 0 || this.isRunning) return;
         
         this.isRunning = true;
+        
+        // 使用performance.now()获取高精度时间戳
         this.lastTimestamp = performance.now();
         
         // 更新按钮文本和图标
@@ -256,11 +288,11 @@ const Countdown = {
         if (!this.isRunning) return;
         
         // 计算经过的时间（秒）
-        const elapsed = (timestamp - this.lastTimestamp) / 1000;
-        this.lastTimestamp = timestamp;
+        const elapsedSeconds = (timestamp - this.lastTimestamp) / 1000;
         
-        // 更新剩余时间
-        this.remainingSeconds = Math.max(0, this.remainingSeconds - elapsed);
+        // 更新剩余时间，不需要保留小数精度
+        this.remainingSeconds = Math.max(0, this.remainingSeconds - elapsedSeconds);
+        this.lastTimestamp = timestamp;
         
         // 更新显示
         this.updateDisplay();

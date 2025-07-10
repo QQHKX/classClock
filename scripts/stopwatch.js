@@ -50,17 +50,18 @@ const Stopwatch = {
      * 更新秒表显示
      */
     updateDisplay: function() {
-        // 计算分钟、秒和毫秒
+        // 计算分钟和秒，不再计算毫秒
         const totalSeconds = Math.floor(this.elapsedTime / 1000);
         const minutes = Math.floor(totalSeconds / 60);
         const seconds = totalSeconds % 60;
-        const milliseconds = Math.floor((this.elapsedTime % 1000) / 10);
         
         // 更新主显示（分:秒）
         this.element.childNodes[0].nodeValue = Utils.formatMinutesSeconds(minutes, seconds);
         
-        // 更新毫秒显示
-        this.millisecondsElement.textContent = Utils.formatTwoDigits(milliseconds);
+        // 隐藏毫秒显示
+        if (this.millisecondsElement) {
+            this.millisecondsElement.style.display = 'none';
+        }
     },
     
     /**

@@ -14,7 +14,7 @@
         <div id="time-display">
             <div id="clock" class="time-mode active">00:00:00</div>
             <div id="countdown" class="time-mode">00:00</div>
-            <div id="stopwatch" class="time-mode">00:00<span class="milliseconds">00</span></div>
+            <div id="stopwatch" class="time-mode">00:00</div>
         </div>
 
         <!-- 控制中心 (HUD) -->
@@ -74,6 +74,19 @@
         <div id="countdown-modal" class="modal">
             <div class="modal-content">
                 <div class="time-picker">
+                    <div class="time-unit">
+                        <div class="time-value" id="countdown-hours">00</div>
+                        <div class="time-label">小时</div>
+                        <div class="time-controls">
+                            <button class="time-btn" data-action="plus" data-target="hours">
+                                <svg class="feather"><use href="#plus"/></svg>
+                            </button>
+                            <button class="time-btn" data-action="minus" data-target="hours">
+                                <svg class="feather"><use href="#minus"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="time-separator">:</div>
                     <div class="time-unit">
                         <div class="time-value" id="countdown-minutes">00</div>
                         <div class="time-label">分钟</div>
