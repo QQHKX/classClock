@@ -75,9 +75,10 @@ const Countdown = {
         // 预设按钮
         this.presetButtons.forEach(button => {
             Utils.addEvent(button, 'click', () => {
+                const hours = parseInt(button.dataset.hours, 10) || 0;
                 const minutes = parseInt(button.dataset.minutes, 10) || 0;
                 const seconds = parseInt(button.dataset.seconds, 10) || 0;
-                this.setTime(0, minutes, seconds);
+                this.setTime(hours, minutes, seconds);
             });
         });
         
@@ -99,6 +100,7 @@ const Countdown = {
         Utils.toggleActive(this.modal, true);
         
         // 更新模态框中的时间显示
+        this.hoursElement.textContent = Utils.formatTwoDigits(this.hours);
         this.minutesElement.textContent = Utils.formatTwoDigits(this.minutes);
         this.secondsElement.textContent = Utils.formatTwoDigits(this.seconds);
     },
