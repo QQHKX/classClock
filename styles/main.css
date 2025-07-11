@@ -5,7 +5,8 @@
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -15,8 +16,10 @@ html, body {
     font-weight: var(--font-weight-light);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    user-select: none; /* 防止文本选择 */
-    touch-action: manipulation; /* 优化触控 */
+    user-select: none;
+    /* 防止文本选择 */
+    touch-action: manipulation;
+    /* 优化触控 */
 }
 
 /* 主应用容器 */
@@ -52,7 +55,8 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer; /* 指示可点击 */
+    cursor: pointer;
+    /* 指示可点击 */
 }
 
 /* 激活的时间模式 */
@@ -67,7 +71,8 @@ html, body {
     color: var(--color-secondary);
     margin-left: var(--spacing-xs);
     align-self: flex-end;
-    margin-bottom: 1.5vh; /* 微调垂直对齐 */
+    margin-bottom: 1.5vh;
+    /* 微调垂直对齐 */
 }
 
 /* 控制中心 (HUD) */
@@ -80,7 +85,8 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    pointer-events: none; /* 允许点击穿透到时间显示 */
+    pointer-events: none;
+    /* 允许点击穿透到时间显示 */
     opacity: 0;
     transition: opacity var(--animation-speed-normal) ease-in-out;
 }
@@ -190,7 +196,8 @@ html, body {
     z-index: -1;
 }
 
-.control-btn:hover, .control-btn:active {
+.control-btn:hover,
+.control-btn:active {
     background-color: rgba(255, 255, 255, calc(var(--opacity-subtle) * 2));
 }
 
@@ -374,6 +381,7 @@ html, body {
     from {
         transform: scale(1);
     }
+
     to {
         transform: scale(1.02);
     }
@@ -381,10 +389,15 @@ html, body {
 
 /* 倒计时结束闪烁效果 */
 @keyframes blink {
-    0%, 50%, 100% {
+
+    0%,
+    50%,
+    100% {
         opacity: 1;
     }
-    25%, 75% {
+
+    25%,
+    75% {
         opacity: 0.3;
     }
 }
@@ -395,12 +408,12 @@ html, body {
         --font-size-time: 20vh;
         --font-size-milliseconds: 6vh;
     }
-    
+
     #mode-selector {
         padding: var(--spacing-lg) 0;
         top: 15%;
     }
-    
+
     #control-bar {
         padding: var(--spacing-xl) 0;
     }
@@ -411,7 +424,7 @@ html, body {
     #mode-selector {
         top: 25%;
     }
-    
+
     .mode-btn {
         padding: var(--spacing-md) var(--spacing-lg);
         font-size: calc(var(--font-size-ui-medium) * 1.2);
@@ -438,15 +451,39 @@ html, body {
 
 /* 版本信息样式 */
 #version-info {
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  font-size: 12px;
-  color: #999;
-  text-decoration: none;
-  z-index: 1000;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 12px;
+    color: #999;
+    text-decoration: none;
+    z-index: 1000;
 }
 
 #version-info:hover {
-  color: #666;
+    color: #666;
+}
+
+/* 彻底移除触屏设备上的点击高亮效果和焦点轮廓 */
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+*:focus {
+    outline: none !important;
+}
+
+/* 为键盘用户保留可访问性焦点样式 */
+*:focus-visible {
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5) !important;
+}
+
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
 }
