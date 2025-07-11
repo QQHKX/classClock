@@ -7,7 +7,28 @@
     <link rel="stylesheet" href="styles/main.css" />
     <link rel="stylesheet" href="styles/variables.css" />
     <link rel="icon" href="https://image.qqhkx.com/Profile_%20picture_2.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <script>
+  (function() {
+    const fontCss = localStorage.getItem('cachedGoogleFonts');
+    if (fontCss) {
+      const style = document.createElement('style');
+      style.textContent = fontCss;
+      document.head.appendChild(style);
+    } else {
+      const link = document.createElement('link');
+      link.href = 'https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=Inter:wght@300;400&display=swap';
+      link.rel = 'stylesheet';
+      document.head.appendChild(link);
+      
+      // 缓存字体CSS
+      fetch(link.href)
+        .then(response => response.text())
+        .then(css => {
+          localStorage.setItem('cachedGoogleFonts', css);
+        });
+    }
+  })();
+</script>
 </head>
 <body>
     <div id="app">
