@@ -85,12 +85,105 @@ const Utils = {
     },
     
     /**
+     * 音频缓存对象，用于存储预加载的音频数据
+     */
+    audioCache: {
+        cache: {},
+        expirationTime: 24 * 60 * 60 * 1000, // 缓存过期时间：1天（毫秒）
+        
+        /**
+         * 预加载音频并缓存
+         * @param {string} url - 音频文件URL
+         * @param {string} audioId - 音频元素ID
+         * @returns {Promise} - 加载完成的Promise
+         */
+        preloadAudio: function(url, audioId) {
+            return new Promise((resolve, reject) => {
+                // 检查本地存储中是否有缓存
+                const cachedData = localStorage.getItem(`audio_${audioId}`);
+                if (cachedData) {
+                    try {
+                        const audioData = JSON.parse(cachedData);
+                        // 检查缓存是否过期
+                        if (Date.now() - audioData.timestamp < this.expirationTime) {
+                            // 使用缓存的数据
+                            this.cache[audioId] = audioData.data;
+                            console.log(`使用缓存的音频: ${audioId}`);
+                            resolve();
+                            return;
+                        }
+                    } catch (e) {
+                        console.error('解析缓存音频数据失败:', e);
+                        // 继续获取新数据
+                    }
+                }
+                
+                // 获取新数据
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`音频加载失败: ${response.status} ${response.statusText}`);
+                        }
+                        return response.blob();
+                    })
+                    .then(blob => {
+                        // 将Blob转换为Base64字符串
+                        return new Promise((resolve, reject) => {
+                            const reader = new FileReader();
+                            reader.onloadend = () => resolve(reader.result);
+                            reader.onerror = reject;
+                            reader.readAsDataURL(blob);
+                        });
+                    })
+                    .then(base64data => {
+                        // 缓存到内存
+                        this.cache[audioId] = base64data;
+                        
+                        // 缓存到本地存储
+                        try {
+                            const cacheData = {
+                                data: base64data,
+                                timestamp: Date.now()
+                            };
+                            localStorage.setItem(`audio_${audioId}`, JSON.stringify(cacheData));
+                            console.log(`音频已缓存: ${audioId}`);
+                        } catch (e) {
+                            console.warn('无法将音频保存到本地存储:', e);
+                        }
+                        
+                        resolve();
+                    })
+                    .catch(error => {
+                        console.error('预加载音频失败:', error);
+                        reject(error);
+                    });
+            });
+        },
+        
+        /**
+         * 获取缓存的音频数据
+         * @param {string} audioId - 音频元素ID
+         * @returns {string|null} - Base64编码的音频数据或null
+         */
+        getAudio: function(audioId) {
+            return this.cache[audioId] || null;
+        }
+    },
+    
+    /**
      * 播放音效
      * @param {string} audioId - 音频元素的ID
      */
     playSound: function(audioId) {
         const audio = document.getElementById(audioId);
         if (audio) {
+            // 检查是否有缓存的音频数据
+            const cachedAudio = this.audioCache.getAudio(audioId);
+            if (cachedAudio) {
+                // 使用缓存的音频数据
+                audio.src = cachedAudio;
+            }
+            
             // 重置音频到开始位置并播放
             audio.currentTime = 0;
             audio.play().catch(err => {

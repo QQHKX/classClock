@@ -36,6 +36,9 @@ const App = {
         this.modeButtons = document.querySelectorAll('.mode-btn');
         this.fullscreenButtons = document.querySelectorAll('#fullscreen-btn, #countdown-fullscreen, #stopwatch-fullscreen');
         
+        // 预加载音频资源
+        this.preloadAudioResources();
+        
         // 初始化各个模式
         Clock.init();
         Countdown.init();
@@ -46,6 +49,20 @@ const App = {
         
         // 激活默认模式
         this.switchMode(this.currentMode);
+    },
+    
+    /**
+     * 预加载音频资源
+     */
+    preloadAudioResources: function() {
+        // 预加载倒计时结束音效
+        Utils.audioCache.preloadAudio('ding.mp3', 'ding-sound')
+            .then(() => {
+                console.log('音频资源预加载完成');
+            })
+            .catch(error => {
+                console.error('音频资源预加载失败:', error);
+            });
     },
     
     /**
