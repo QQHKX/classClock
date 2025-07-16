@@ -12,7 +12,7 @@ const ThemeManager = {
     
     // 主题CSS文件映射
     themeFiles: {
-        'dark': 'styles/themes/dark.css',
+        'light': 'styles/themes/dark.css',
         'colorful': 'styles/themes/colorful.css'
         // 'minimal' 主题使用内联样式，无需加载文件
     },
@@ -64,7 +64,7 @@ const ThemeManager = {
      */
     applyTheme: async function(theme) {
         // 验证主题名称
-        if (!['minimal', 'dark', 'colorful'].includes(theme)) {
+        if (!['minimal', 'light', 'colorful'].includes(theme)) {
             throw new Error(`无效的主题名称: ${theme}`);
         }
         
@@ -79,7 +79,7 @@ const ThemeManager = {
         }
         
         // 移除所有主题类
-        document.body.classList.remove('theme-minimal', 'theme-dark', 'theme-colorful');
+        document.body.classList.remove('theme-minimal', 'theme-light', 'theme-colorful');
         
         // 添加新主题类
         document.body.classList.add(`theme-${theme}`);
@@ -132,7 +132,7 @@ const ThemeManager = {
      */
     fallbackToMinimal: function() {
         // 移除所有主题类
-        document.body.classList.remove('theme-minimal', 'theme-dark', 'theme-colorful');
+        document.body.classList.remove('theme-minimal', 'theme-light', 'theme-colorful');
         // 添加极简主题类
         document.body.classList.add('theme-minimal');
         // 更新当前主题
@@ -163,7 +163,7 @@ const ThemeManager = {
     loadTheme: async function() {
         try {
             const savedTheme = localStorage.getItem('clockTheme');
-            if (savedTheme && ['minimal', 'dark', 'colorful'].includes(savedTheme)) {
+            if (savedTheme && ['minimal', 'light', 'colorful'].includes(savedTheme)) {
                 await this.selectTheme(savedTheme);
             } else {
                 // 如果没有保存的主题，应用默认的极简主题

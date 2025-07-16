@@ -1,37 +1,37 @@
 /**
- * 深色主题样式
- * 提供深色背景和柔和的文字颜色
+ * 浅色主题样式
+ * 提供浅色背景和深色文字颜色
  */
 
-/* 深色主题 */
-body.theme-dark {
-    --color-background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-    --color-primary: #ecf0f1;
-    --color-secondary: rgba(236, 240, 241, 0.7);
-    --color-accent: #ecf0f1;
+/* 浅色主题 */
+body.theme-light {
+    --color-background: linear-gradient(135deg, #f0f4f8 0%, #e0e8f0 100%);
+    --color-primary: #2c3e50;
+    --color-secondary: rgba(44, 62, 80, 0.7);
+    --color-accent: #2c3e50;
     background: var(--color-background);
 }
 
-/* 深色主题特殊效果 */
-body.theme-dark .control-btn {
-    background-color: rgba(236, 240, 241, var(--opacity-subtle));
+/* 浅色主题特殊效果 */
+body.theme-light .control-btn {
+    background-color: rgba(44, 62, 80, var(--opacity-subtle));
 }
 
-body.theme-dark .control-btn:hover,
-body.theme-dark .control-btn:active {
-    background-color: rgba(236, 240, 241, calc(var(--opacity-subtle) * 2));
+body.theme-light .control-btn:hover,
+body.theme-light .control-btn:active {
+    background-color: rgba(44, 62, 80, calc(var(--opacity-subtle) * 2));
 }
 
-body.theme-dark .modal-content {
-    background-color: rgba(44, 62, 80, 0.95);
-    border: 1px solid rgba(236, 240, 241, 0.1);
+body.theme-light .modal-content {
+    background-color: rgba(240, 244, 248, 0.95);
+    border: 1px solid rgba(44, 62, 80, 0.1);
 }
 
-body.theme-dark .theme-btn:hover {
-    border-color: rgba(236, 240, 241, var(--opacity-subtle));
+body.theme-light .theme-btn:hover {
+    border-color: rgba(44, 62, 80, var(--opacity-subtle));
 }
 
-body.theme-dark .theme-btn.active {
+body.theme-light .theme-btn.active {
     border-color: var(--color-primary);
-    background-color: rgba(236, 240, 241, var(--opacity-subtle));
+    background-color: rgba(44, 62, 80, var(--opacity-subtle));
 }
