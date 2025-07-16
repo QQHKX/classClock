@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://clock.qqhkx.com/sitemap.xml

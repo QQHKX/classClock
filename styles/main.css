@@ -22,6 +22,18 @@ body {
     /* 优化触控 */
 }
 
+/* SEO专用隐藏元素样式 */
+.seo-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
 /* 主应用容器 */
 #app {
     width: 100%;
