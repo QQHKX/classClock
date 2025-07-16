@@ -1,32 +1,24 @@
 /**
  * 彩色主题样式
- * 提供动态渐变背景和丰富的视觉效果
+ * 提供柔和的渐变背景和简洁的视觉效果
  */
 
 /* 彩色主题 */
 body.theme-colorful {
-    --color-background: linear-gradient(135deg, #ff6b6b 0%, #feca57 25%, #48dbfb 50%, #ff9ff3 75%, #54a0ff 100%);
+    --color-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     --color-primary: #ffffff;
     --color-secondary: rgba(255, 255, 255, 0.8);
     --color-accent: #ffffff;
     background: var(--color-background);
-    background-size: 400% 400%;
-    animation: gradientShift 10s ease infinite;
-}
-
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
 }
 
 /* 彩色主题特殊效果 */
 body.theme-colorful .time-mode {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 body.theme-colorful .milliseconds {
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 body.theme-colorful .control-btn {
