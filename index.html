@@ -180,6 +180,37 @@
                 <button id="countdown-confirm" class="confirm-btn">确认</button>
             </div>
         </div>
+
+        <!-- 时钟设置浮层 -->
+        <div id="clock-settings-modal" class="modal">
+            <div class="modal-content">
+                <div class="settings-header">
+                    <h3 class="settings-title">时钟设置</h3>
+                </div>
+                
+                <div class="settings-section">
+                    <div class="setting-item">
+                        <div class="setting-label">主题选择</div>
+                        <div class="theme-selector">
+                            <button class="theme-btn" data-theme="minimal">
+                                <div class="theme-preview minimal-preview"></div>
+                                <span class="theme-name">极简主题</span>
+                            </button>
+                            <button class="theme-btn" data-theme="dark">
+                                <div class="theme-preview dark-preview"></div>
+                                <span class="theme-name">深色主题</span>
+                            </button>
+                            <button class="theme-btn" data-theme="colorful">
+                                <div class="theme-preview colorful-preview"></div>
+                                <span class="theme-name">彩色主题</span>
+                            </button>
+                                                    </div>
+                    </div>
+                </div>
+                
+                <button id="clock-settings-confirm" class="confirm-btn">确认</button>
+            </div>
+        </div>
     </div>
 
     <!-- Feather Icons SVG Sprites -->
@@ -215,6 +246,7 @@
 
     <!-- 脚本 -->
     <script src="scripts/utils.js"></script>
+    <script src="scripts/themes.js"></script>
     <script src="scripts/clock.js"></script>
     <script src="scripts/countdown.js"></script>
     <script src="scripts/stopwatch.js"></script>

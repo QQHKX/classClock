@@ -6,20 +6,85 @@
 const Clock = {
     // 元素引用
     element: null,
+    modal: null,
+    confirmButton: null,
+    themeButtons: null,
     
     // 动画帧请求ID
     animationFrameId: null,
     
+
+    
     /**
      * 初始化时钟模式
-     * @returns {void} 无返回值
+     * @returns {Promise<void>} 返回Promise，表示初始化完成
      */
-    init: function() {
+    init: async function() {
         this.element = document.getElementById('clock');
+        this.modal = document.getElementById('clock-settings-modal');
+        this.confirmButton = document.getElementById('clock-settings-confirm');
+        this.themeButtons = document.querySelectorAll('.theme-btn');
+        
+        // 绑定事件
+        this.bindEvents();
         
         // 初始化时立即更新一次时间
         this.updateTime();
+        
+        // 初始化主题管理器
+        await ThemeManager.init();
     },
+    
+    /**
+     * 绑定事件处理函数
+     * @returns {void} 无返回值
+     */
+    bindEvents: function() {
+        // 双击时钟显示打开设置模态框
+        Utils.addEvent(this.element, 'dblclick', () => {
+            this.openModal();
+        });
+        
+        // 确认按钮
+        Utils.addEvent(this.confirmButton, 'click', () => this.confirmSettings());
+        
+        // 主题按钮
+        this.themeButtons.forEach(button => {
+            Utils.addEvent(button, 'click', async () => {
+                const theme = button.dataset.theme;
+                await ThemeManager.selectTheme(theme);
+            });
+        });
+    },
+    
+    /**
+     * 打开设置模态框
+     * @returns {void} 无返回值
+     */
+    openModal: function() {
+        Utils.toggleActive(this.modal, true);
+        
+        // 更新主题选择状态
+        ThemeManager.updateThemeSelection();
+    },
+    
+    /**
+     * 关闭设置模态框
+     * @returns {void} 无返回值
+     */
+    closeModal: function() {
+        Utils.toggleActive(this.modal, false);
+    },
+    
+    /**
+     * 确认设置并关闭模态框
+     * @returns {void} 无返回值
+     */
+    confirmSettings: function() {
+        this.closeModal();
+    },
+     
+
     
     /**
      * 更新时间显示
@@ -65,5 +130,6 @@ const Clock = {
             cancelAnimationFrame(this.animationFrameId);
             this.animationFrameId = null;
         }
+        
     }
 };

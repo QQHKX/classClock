@@ -28,9 +28,9 @@ const App = {
     
     /**
      * 初始化应用
-     * @returns {void} 无返回值
+     * @returns {Promise<void>} 返回Promise，表示应用初始化完成
      */
-    init: function() {
+    init: async function() {
         // 获取DOM元素
         this.appElement = document.getElementById('app');
         this.hudElement = document.getElementById('hud');
@@ -40,8 +40,8 @@ const App = {
         // 预加载音频资源
         this.preloadAudioResources();
         
-        // 初始化各个模式
-        Clock.init();
+        // 初始化各个模式（时钟模式需要异步加载主题）
+        await Clock.init();
         Countdown.init();
         Stopwatch.init();
         
@@ -211,6 +211,11 @@ const App = {
 };
 
 // 当DOM加载完成后初始化应用
-document.addEventListener('DOMContentLoaded', () => {
-    App.init();
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        await App.init();
+        console.log('应用初始化完成');
+    } catch (error) {
+        console.error('应用初始化失败:', error);
+    }
 });
