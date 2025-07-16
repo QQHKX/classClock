@@ -20,6 +20,7 @@ const Stopwatch = {
     
     /**
      * 初始化秒表模式
+     * @returns {void} 无返回值
      */
     init: function() {
         // 获取DOM元素
@@ -37,6 +38,7 @@ const Stopwatch = {
     
     /**
      * 绑定事件处理函数
+     * @returns {void} 无返回值
      */
     bindEvents: function() {
         // 开始/暂停按钮
@@ -48,6 +50,7 @@ const Stopwatch = {
     
     /**
      * 更新秒表显示
+     * @returns {void} 无返回值
      */
     updateDisplay: function() {
         // 计算分钟和秒，不再计算毫秒
@@ -66,6 +69,7 @@ const Stopwatch = {
     
     /**
      * 切换秒表状态（开始/暂停）
+     * @returns {void} 无返回值
      */
     toggleStopwatch: function() {
         if (this.isRunning) {
@@ -77,6 +81,7 @@ const Stopwatch = {
     
     /**
      * 开始秒表
+     * @returns {void} 无返回值
      */
     start: function() {
         if (this.isRunning) return;
@@ -96,6 +101,7 @@ const Stopwatch = {
     
     /**
      * 暂停秒表
+     * @returns {void} 无返回值
      */
     pause: function() {
         this.isRunning = false;
@@ -113,6 +119,7 @@ const Stopwatch = {
     
     /**
      * 重置秒表
+     * @returns {void} 无返回值
      */
     reset: function() {
         this.pause();
@@ -125,6 +132,7 @@ const Stopwatch = {
     
     /**
      * 更新秒表（动画帧回调）
+     * @returns {void} 无返回值
      */
     update: function() {
         if (!this.isRunning) return;
@@ -141,6 +149,7 @@ const Stopwatch = {
     
     /**
      * 激活秒表模式
+     * @returns {void} 无返回值
      */
     activate: function() {
         Utils.toggleActive(this.element, true);
@@ -148,6 +157,7 @@ const Stopwatch = {
     
     /**
      * 停用秒表模式
+     * @returns {void} 无返回值
      */
     deactivate: function() {
         Utils.toggleActive(this.element, false);

@@ -32,6 +32,7 @@ const Countdown = {
     
     /**
      * 初始化倒计时功能
+     * @returns {void} 无返回值
      */
     init: function() {
         // 获取DOM元素
@@ -54,6 +55,7 @@ const Countdown = {
     
     /**
      * 绑定事件处理函数
+     * @returns {void} 无返回值
      */
     bindEvents: function() {
         // 点击倒计时显示打开设置模态框
@@ -95,6 +97,7 @@ const Countdown = {
     
     /**
      * 打开设置模态框
+     * @returns {void} 无返回值
      */
     openModal: function() {
         Utils.toggleActive(this.modal, true);
@@ -107,6 +110,7 @@ const Countdown = {
     
     /**
      * 关闭设置模态框
+     * @returns {void} 无返回值
      */
     closeModal: function() {
         Utils.toggleActive(this.modal, false);
@@ -114,6 +118,7 @@ const Countdown = {
     
     /**
      * 确认设置并关闭模态框
+     * @returns {void} 无返回值
      */
     confirmSettings: function() {
         // 获取当前设置的时间值
@@ -132,6 +137,7 @@ const Countdown = {
      * 调整时间（增加或减少小时/分钟/秒）
      * @param {string} action - 'plus' 或 'minus'
      * @param {string} target - 'hours', 'minutes' 或 'seconds'
+     * @returns {void} 无返回值
      */
     adjustTime: function(action, target) {
         if (target === 'hours') {
@@ -163,6 +169,7 @@ const Countdown = {
      * @param {number} hours - 小时数
      * @param {number} minutes - 分钟数
      * @param {number} seconds - 秒数
+     * @returns {void} 无返回值
      */
     setTime: function(hours, minutes, seconds) {
         this.hours = hours;
@@ -182,6 +189,7 @@ const Countdown = {
     
     /**
      * 更新倒计时显示
+     * @returns {void} 无返回值
      */
     updateDisplay: function() {
         // 计算小时、分钟和秒
@@ -212,6 +220,7 @@ const Countdown = {
     
     /**
      * 切换倒计时状态（开始/暂停）
+     * @returns {void} 无返回值
      */
     toggleCountdown: function() {
         if (this.remainingSeconds <= 0) {
@@ -230,6 +239,7 @@ const Countdown = {
     
     /**
      * 开始倒计时
+     * @returns {void} 无返回值
      */
     start: function() {
         if (this.remainingSeconds <= 0 || this.isRunning) return;
@@ -249,6 +259,7 @@ const Countdown = {
     
     /**
      * 暂停倒计时
+     * @returns {void} 无返回值
      */
     pause: function() {
         this.isRunning = false;
@@ -266,6 +277,7 @@ const Countdown = {
     
     /**
      * 重置倒计时
+     * @returns {void} 无返回值
      */
     reset: function() {
         this.pause();
@@ -285,6 +297,7 @@ const Countdown = {
     /**
      * 更新倒计时（动画帧回调）
      * @param {number} timestamp - 当前时间戳
+     * @returns {void} 无返回值
      */
     update: function(timestamp) {
         if (!this.isRunning) return;
@@ -311,6 +324,7 @@ const Countdown = {
     
     /**
      * 倒计时结束处理
+     * @returns {void} 无返回值
      */
     finish: function() {
         this.isRunning = false;
@@ -336,6 +350,7 @@ const Countdown = {
     
     /**
      * 激活倒计时模式
+     * @returns {void} 无返回值
      */
     activate: function() {
         Utils.toggleActive(this.element, true);
@@ -343,6 +358,7 @@ const Countdown = {
     
     /**
      * 停用倒计时模式
+     * @returns {void} 无返回值
      */
     deactivate: function() {
         Utils.toggleActive(this.element, false);

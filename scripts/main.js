@@ -28,6 +28,7 @@ const App = {
     
     /**
      * 初始化应用
+     * @returns {void} 无返回值
      */
     init: function() {
         // 获取DOM元素
@@ -53,6 +54,7 @@ const App = {
     
     /**
      * 预加载音频资源
+     * @returns {void} 无返回值
      */
     preloadAudioResources: function() {
         // 预加载倒计时结束音效
@@ -67,6 +69,7 @@ const App = {
     
     /**
      * 绑定事件处理函数
+     * @returns {void} 无返回值
      */
     bindEvents: function() {
         // 点击屏幕显示控制中心
@@ -113,6 +116,7 @@ const App = {
     /**
      * 切换应用模式
      * @param {string} mode - 模式名称（'clock', 'countdown', 'stopwatch'）
+     * @returns {void} 无返回值
      */
     switchMode: function(mode) {
         if (!this.modes[mode] || mode === this.currentMode) return;
@@ -137,6 +141,7 @@ const App = {
     
     /**
      * 更新模式按钮状态
+     * @returns {void} 无返回值
      */
     updateModeButtons: function() {
         this.modeButtons.forEach(button => {
@@ -147,6 +152,7 @@ const App = {
     
     /**
      * 更新控制栏显示
+     * @returns {void} 无返回值
      */
     updateControlBar: function() {
         const controls = document.querySelectorAll('.controls');
@@ -159,6 +165,7 @@ const App = {
     
     /**
      * 更新全屏按钮图标
+     * @returns {void} 无返回值
      */
     updateFullscreenButtons: function() {
         const isFullscreen = !!document.fullscreenElement;
@@ -174,6 +181,7 @@ const App = {
     
     /**
      * 显示控制中心 (HUD)
+     * @returns {void} 无返回值
      */
     showHUD: function() {
         Utils.toggleActive(this.hudElement, true);
@@ -182,6 +190,7 @@ const App = {
     
     /**
      * 隐藏控制中心 (HUD)
+     * @returns {void} 无返回值
      */
     hideHUD: function() {
         Utils.toggleActive(this.hudElement, false);
@@ -191,6 +200,7 @@ const App = {
     
     /**
      * 重置自动隐藏计时器
+     * @returns {void} 无返回值
      */
     resetAutoHideTimer: function() {
         Utils.clearAutoHideTimer(this.autoHideTimerId);

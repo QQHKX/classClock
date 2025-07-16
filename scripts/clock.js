@@ -12,6 +12,7 @@ const Clock = {
     
     /**
      * 初始化时钟模式
+     * @returns {void} 无返回值
      */
     init: function() {
         this.element = document.getElementById('clock');
@@ -22,6 +23,7 @@ const Clock = {
     
     /**
      * 更新时间显示
+     * @returns {void} 无返回值
      */
     updateTime: function() {
         const now = new Date();
@@ -38,6 +40,7 @@ const Clock = {
     
     /**
      * 激活时钟模式
+     * @returns {void} 无返回值
      */
     activate: function() {
         // 确保时钟元素可见
@@ -51,6 +54,7 @@ const Clock = {
     
     /**
      * 停用时钟模式
+     * @returns {void} 无返回值
      */
     deactivate: function() {
         // 隐藏时钟元素
